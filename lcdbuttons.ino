@@ -27,6 +27,7 @@ void processLcdButtons() {
         printHeader = !printHeader;
         break;
       case btnUP:
+        printTotal(total);
         total = 0;
         break;
       case btnDOWN:
@@ -60,5 +61,3 @@ void processLcdButtons() {
   lcd.setCursor(5, 1);
   lcd.print(String(total) + " kg       ");
 }
-
-

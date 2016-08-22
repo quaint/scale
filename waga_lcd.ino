@@ -35,9 +35,9 @@ int afterEnd = 0;
 
 int lcdKey = 0;
 int adcKeyIn = 0;
-int trailers[] = {0, 2200, 2400, 2380, 2320, 3000};
+int trailers[] = {0, 5740, 3230, 2520, 4560, 2300, 2240, 5080, 2520, 2580, 3400, 1460};
 int selectedTrailer = 0;
-const int trailersCount = 5;
+const int trailersCount = 11;
 int buttonPushed = btnNONE;
 boolean printHeader = true;
 
@@ -46,7 +46,7 @@ unsigned long total = 0;
 const int DISPLAY_WIDTH = 15;
 const int DIGIT_WIDTH = 3;
 const int DIGIT_HEIGHT = 5;
-const int POWER =  50;
+const int POWER =  255;
 
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 SoftwareSerial mySerial(RX_PIN, TX_PIN);

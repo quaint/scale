@@ -1,13 +1,39 @@
 void displayValue(unsigned long value) {
-  digit(4, value % 10, COLOR_4);
+  int value4 = value % 10;
   value /= 10;
-  digit(3, value % 10, COLOR_4);
+  int value3 = value % 10;
   value /= 10;
-  digit(2, value % 10, COLOR_4);
+  int value2 = value % 10;
   value /= 10;
-  digit(1, value % 10, COLOR_4);
+  int value1 = value % 10;
   value /= 10;
-  digit(0, value % 10, COLOR_4);
+  int value0 = value % 10;
+  boolean firstFound = false;
+  if (value0 > 0) {
+    digit(0, value0, COLOR_1);
+    firstFound = true;
+  } else {
+    digit(0, value0, COLOR_0);
+  }
+  if (firstFound || value1 > 0) {
+    digit(1, value1, COLOR_2);
+    firstFound = true;
+  } else {
+    digit(1, value1, COLOR_0);
+  }
+  if (firstFound || value2 > 0) {
+    digit(2, value2, COLOR_1);
+    firstFound = true;
+  } else {
+    digit(2, value2, COLOR_0);
+  }
+  if (firstFound || value3 > 0) {
+    digit(3, value3, COLOR_2);
+    firstFound = true;
+  } else {
+    digit(3, value3, COLOR_0);
+  }
+  digit(4, value4, COLOR_1);
 }
 
 void digit(int position, int value, uint32_t color) {

@@ -9,7 +9,7 @@ void printRecipe(String waga, String numer) {
     printer.justify('C');
     printer.setSize('M');
     printer.println("Gospodarstwo Rolne");
-    printer.justify('C');
+    printer.justify('C');        
     printer.setSize('M');
     printer.print("Przemys");
     printer.write(0xb3);
@@ -29,23 +29,8 @@ void printRecipe(String waga, String numer) {
   printer.feed();
 
   //  printer.println(data + F("             ") + godzina);
-  DateTime now = rtc.now();
-
-  printer.print(now.day(), DEC);
-  printer.print('.');
-  printer.print(now.month(), DEC);
-  printer.print('.');
-  printer.print(now.year(), DEC);
-  printer.print(F("             "));
-
-  printer.print(' ');
-  printer.print(now.hour(), DEC);
-  printer.print(':');
-  printer.print(now.minute(), DEC);
-  printer.print(':');
-  printer.print(now.second(), DEC);
-  printer.println();
-
+  printDate();
+  
   printer.println(F("- - - - - - - - - - - - - - - -"));
   printer.justify('R');
   printer.setSize('S');
@@ -59,8 +44,12 @@ void printRecipe(String waga, String numer) {
     printer.println(F("- - - - - - - - - - - - - - - -"));
     printer.setSize('L');
     //    printer.print(F("Netto "));
-    unsigned long netto = waga.toInt() - trailers[selectedTrailer];
-    total += netto;
+    int wagaInt = waga.toInt();
+    unsigned long netto = 0;
+    if (wagaInt > trailers[selectedTrailer]) {
+      netto = waga.toInt() - trailers[selectedTrailer];
+      total += netto;
+    }
     printer.print(netto);
     printer.println(F(" kg"));
   } else {
@@ -72,8 +61,51 @@ void printRecipe(String waga, String numer) {
   printer.setSize('S');
   printer.println(numer);
   printer.feed(4);
-
   printer.sleep();      // Tell printer to sleep
 }
 
+void printTotal(unsigned long totalSum) {
+  printer.wake();       // MUST wake() before printing again, even if reset
+  printer.setDefault();
+  printDate();
+  printer.println(F("- - - - - - - - - - - - - - - -"));
+  printer.justify('R');
+  printer.setSize('L');
+  printer.print(F("Suma "));
+  printer.print(totalSum);
+  printer.println(F(" kg"));
+  printer.feed(4);
+  printer.sleep();      // Tell printer to sleep  
+}
 
+void printDate() {
+  DateTime now = rtc.now();
+  if (now.day() < 10) {
+    printer.print(0);
+  }
+  
+  printer.print(now.day(), DEC);
+  printer.print('.');
+  if (now.month() < 10) {
+    printer.print(0);
+  }
+  printer.print(now.month(), DEC);
+  printer.print('.');
+  printer.print(now.year(), DEC);
+  printer.print(F("              "));
+  if (now.hour() < 10) {
+    printer.print(0);
+  }
+  printer.print(now.hour(), DEC);
+  printer.print(':');
+  if (now.minute() < 10) {
+    printer.print(0);
+  }
+  printer.print(now.minute(), DEC);
+  printer.print(':');
+  if (now.second() < 10) {
+    printer.print(0);
+  }
+  printer.print(now.second(), DEC);
+  printer.println();
+}
