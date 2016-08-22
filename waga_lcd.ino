@@ -79,6 +79,8 @@ void setup() {
   if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
 #endif
   pixels.begin();
+  displayValue(0);
+  pixels.show();
 }
 
 void loop() {

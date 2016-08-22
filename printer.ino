@@ -92,7 +92,7 @@ void printDate() {
   printer.print(now.month(), DEC);
   printer.print('.');
   printer.print(now.year(), DEC);
-  printer.print(F("              "));
+  printer.print(F("             "));
   if (now.hour() < 10) {
     printer.print(0);
   }
