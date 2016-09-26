@@ -1,4 +1,4 @@
-void printRecipe(String waga, String numer) {
+void printRecipe() {
   printer.wake();       // MUST wake() before printing again, even if reset
   printer.setDefault();
   printer.setCodePage(CODEPAGE_ISO_8859_2);
@@ -37,29 +37,29 @@ void printRecipe(String waga, String numer) {
   //  printer.println(F("Waga"));
   if (selectedTrailer > 0) {
     printer.setSize('S');
-    printer.println("Brutto " + waga + " kg");
+    printer.println("Brutto " + lastReadWeight + " kg");
     printer.print(F("Tara "));
     printer.print(trailers[selectedTrailer]);
     printer.println(F(" kg"));
     printer.println(F("- - - - - - - - - - - - - - - -"));
     printer.setSize('L');
     //    printer.print(F("Netto "));
-    int wagaInt = waga.toInt();
+    int wagaInt = lastReadWeight.toInt();
     unsigned long netto = 0;
     if (wagaInt > trailers[selectedTrailer]) {
-      netto = waga.toInt() - trailers[selectedTrailer];
+      netto = wagaInt - trailers[selectedTrailer];
       total += netto;
     }
     printer.print(netto);
     printer.println(F(" kg"));
   } else {
     printer.setSize('L');
-    printer.println(waga + F(" kg"));
+    printer.println(lastReadWeight + F(" kg"));
   }
   printer.feed();
   printer.justify('L');
   printer.setSize('S');
-  printer.println(numer);
+  printer.println(lastReadNumber);
   printer.feed(4);
   printer.sleep();      // Tell printer to sleep
 }

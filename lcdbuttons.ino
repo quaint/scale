@@ -38,7 +38,7 @@ void processLcdButtons() {
   }
   delay(50);
   if (shouldPrint) {
-    printRecipe(lastReadWeight, lastReadNumber);
+    printRecipe();
   }
   if (selectedTrailer > trailersCount) {
     selectedTrailer = 0;
